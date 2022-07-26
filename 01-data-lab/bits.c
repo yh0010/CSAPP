@@ -13,7 +13,7 @@
  * case it's OK.  
  */
 
-#if 0
+#if 0 
 /*
  * Instructions to Students:
  *
@@ -140,10 +140,10 @@ NOTES:
  *   Example: bitXor(4, 5) = 1
  *   Legal ops: ~ &
  *   Max ops: 14
- *   Rating: 1
+ *   Rating: 1 
  */
 int bitXor(int x, int y) {
-  return 2;
+  return ~(~(x&~(x&y)) & ~(y&~(x&y)));//os
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -153,7 +153,7 @@ int bitXor(int x, int y) {
  */
 int tmin(void) {
 
-  return 2;
+  return (~0x0)<<31; 
 
 }
 //2
@@ -165,7 +165,14 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return 2;
+  //return (~((~(x | ((~0x0)<<31)))+((~0x0)<<31)))>>30;
+  //only works on Tmin, Tmax and 0
+  //return (x + ~x)+1; // return 0 as expected
+  //return (((x | ((~0x0)<<31)) + 1) >> 31) + 1;
+  //breaks when input is -1
+  // return !((x ^ ((~0x0)<<31)) + 1); 
+  // I forgot cannot use shift ughhhhhhhhh
+  return !(~((!(x+1)^(x+1)) +x));//stackoverflow,whatever
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -176,7 +183,7 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+  return 0;
 }
 /* 
  * negate - return -x 

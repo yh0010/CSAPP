@@ -182,8 +182,10 @@ int isTmax(int x) {
  *   Max ops: 12
  *   Rating: 2
  */
-int allOddBits(int x) {
-  return 0;
+int allOddBits(int x){
+       int mask = (0xAA << 8) + 0xAA;
+	mask = (mask << 16) + mask;       
+	return !((mask & x) ^ mask);
 }
 /* 
  * negate - return -x 

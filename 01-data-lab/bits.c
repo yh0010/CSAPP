@@ -195,7 +195,7 @@ int allOddBits(int x){
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  	return ~x + 1;
 }
 //3
 /* 
@@ -208,7 +208,7 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+  return !((x >> 4)^0x3);//undone, can examine 0x3 but not 0x30-0x39
 }
 /* 
  * conditional - same as x ? y : z 

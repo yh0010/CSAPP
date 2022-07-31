@@ -208,8 +208,9 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return !((x >> 4)^0x3);//undone, can examine 0x3 but not 0x30-0x39
-}
+	int ones = x ^ 0x30;
+  return !((x >> 4)^0x3) & (!(ones & 0x8) | !(ones ^ 0x8) | !(ones ^ 0x9));}
+  //examine 0x3? and 0x?[0-9] separately
 /* 
  * conditional - same as x ? y : z 
  *   Example: conditional(2,4,5) = 4
@@ -218,9 +219,11 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+	int mask = ~0x00 + !x;
+  	return (mask & y) | (~mask & z);//briliant solution from reference
 }
 /* 
+ *
  * isLessOrEqual - if x <= y  then return 1, else return 0 
  *   Example: isLessOrEqual(4,5) = 1.
  *   Legal ops: ! ~ & ^ | + << >>

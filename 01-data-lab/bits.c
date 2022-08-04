@@ -135,6 +135,7 @@ NOTES:
 
 #endif
 //1
+
 /* 
  * bitXor - x^y using only ~ and & 
  *   Example: bitXor(4, 5) = 1
@@ -231,8 +232,21 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+	//compare number which are not Tmin and Tmax together
+  	int negx = ~x + 1;
+	int sum = negx + y; //will be negative if x > y
+	int leftb = (sum >> 31) & 1;
+
+	//check specifically for Tmin Tmax combo
+	int signb = 1 << 31;
+	int xsign = signb & x;
+	int ysign = signb & y;
+	int xorxy = xsign ^ ysign; //to get the sign bit
+	xorxy = (xorxy >> 31) & 1;
+
+	return (xorxy & (xsign >> 31)) | (!leftb & !xorxy);
 }
+
 //4
 /* 
  * logicalNeg - implement the ! operator, using all of 

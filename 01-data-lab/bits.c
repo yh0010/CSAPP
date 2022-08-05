@@ -309,7 +309,26 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
-  return 2;
+ 	/*if (uf == 0){
+		return uf;
+	}*/
+	unsigned sign = uf & 0x80000000, exp = uf & 0x7f800000, frac = uf & 0x07fffff;
+	//check 0 or denormalized
+	if (exp == 0)
+		return sign | uf << 1;
+
+	//check infinity or NaN
+	if (exp == 0x7f800000)
+		return uf;
+
+	//apply *2 to normalized value
+	exp += 0x00800000;
+
+	//exp = 0x7f after *2 will becomes a denorm
+	if (exp == 0x7f800000)
+		frac = 0;
+
+	return sign | exp | frac;
 }
 /* 
  * floatFloat2Int - Return bit-level equivalent of expression (int) f

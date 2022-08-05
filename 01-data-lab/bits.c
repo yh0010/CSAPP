@@ -272,7 +272,29 @@ int logicalNeg(int x) {
  *  Rating: 4
  */
 int howManyBits(int x) {
-  return 0;
+
+	int bit16, bit8, bit4, bit2, bit1, bit0;
+ 	int signb = x >> 31;
+	int inverseNegX = (signb & ~x) | (~signb & x);
+	//make neg x to its invert form, then perform binary search on bit level	
+	 bit16 = !!(inverseNegX >> 16) << 4;
+	inverseNegX = inverseNegX >> bit16;
+
+	bit8 = !!(inverseNegX >> 8) << 3;
+	inverseNegX = inverseNegX >> bit8;
+	
+	bit4 = !!(inverseNegX >> 4) << 2;
+	inverseNegX = inverseNegX >> bit4;
+
+	bit2 = !!(inverseNegX >> 2) << 1;
+	inverseNegX = inverseNegX >> bit2;
+
+	bit1 = !!(inverseNegX >> 1);
+	inverseNegX = inverseNegX >> bit1;
+
+	bit0 = inverseNegX;
+
+       	return bit16 + bit8 + bit4 + bit2 + bit1 + bit0 + 1;
 }
 //float
 /* 

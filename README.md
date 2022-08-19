@@ -17,5 +17,7 @@ Linux envrionment but not Mach(which uses Mach-O).
 #lab quick run through:
 
 lab0 - implement basic c function for altering a linked list
+
 lab1 - practice on bitwise operations
+
 lab2 - practice on gdb debugger
